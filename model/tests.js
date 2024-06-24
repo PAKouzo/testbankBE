@@ -1,30 +1,26 @@
 import mongoose from "mongoose";
 
 const testSchema = new mongoose.Schema({
-  testName: {
-    type: String,
-    required: true,
-  },
-  subjectID: {
+  title: { type: String, required: true },
+  description: { type: String },
+  subject_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "subjects",
+    ref: "Subject",
     required: true,
   },
-  teacherID: {
+  class_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+    ref: "Class",
     required: true,
   },
-  duration: {
-    type: Number,
+  created_by: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
-  showCorrectAnswers: {
-    type: Boolean,
-    required: true,
-  },
-  description: String,
-  accessPassword: String,
+  created_at: { type: Date, default: Date.now },
+  updated_at: { type: Date, default: Date.now },
+  questions: [TestQuestionSchema],
 });
 
 const TestModel = mongoose.model("tests", testSchema);

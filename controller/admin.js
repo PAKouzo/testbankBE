@@ -4,7 +4,7 @@ import UserModel from "../model/users";
 const AdminCTL = {
     getUserById:async(req, res) => {
         try{
-            const{_id} = req.body;
+            const { _id } = req.query;
             const users = await UserModel.findById(_id)
             if (!_id)
               throw new Error("Invalid id");
@@ -26,13 +26,26 @@ const AdminCTL = {
     },
     getListTestById: async(req, res) => {
         try {
-          const { _id } = req.body;
+          const { _id } = req.query;
           const tests = await TestModel.findById(_id);
           if (!_id) throw new Error("Invalid id");
           res.json(tests);
         } catch (e) {
           res.status(500).json({ message: e.message });
         }
+    },
+    deleteUser: async(req, res)=>{
+      try{
+        const { _id } = req.query;
+        const tests = await TestModel.findByIdAndDelete(_id);
+        if (!_id) throw new Error("Invalid id");
+        res.status(401).json({
+          message: "User deleted successfully"
+        })
+      }
+      catch(e){
+        res.status(500).json({message: e.message})
+      }
     }
 }
 export default AdminCTL;
