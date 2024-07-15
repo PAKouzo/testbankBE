@@ -12,7 +12,7 @@ const questionSchema = new mongoose.Schema(
     },
     course: {
       type: mongoose.ObjectId,
-      ref: 'Course',
+      ref: 'courses',
       required: true,
     },
     topic: {
@@ -53,4 +53,4 @@ const questionSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-export default mongoose.model('Question', questionSchema);
+export default mongoose.model('questions', questionSchema);

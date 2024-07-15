@@ -18,7 +18,8 @@ const examSchema = new mongoose.Schema({
     required: true,
   },
   timeStart: {
-    type: Date.now(),
+    type: Date,
+    default: Date.now,
     required: true,
   },
   timeEnd: {
@@ -38,12 +39,12 @@ const examSchema = new mongoose.Schema({
     required: true,
   },
   subject: {
-    type: String,
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'subjects',
   },
   gradeLevel: {
-    type: String,
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    required: 'courses',
   },
   slug: {
     type: String,
@@ -51,8 +52,8 @@ const examSchema = new mongoose.Schema({
   },
   question: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Question',
+    ref: 'questions',
   },
 });
 
-export default mongoose.model('Exam', examSchema);
+export default mongoose.model('exams', examSchema);

@@ -186,7 +186,7 @@ export const duplicateQuestionController = async (req, res) => {
 //get all questions
 export const getQuestionController = async (req, res) => {
   try {
-    const questions = await questionModel.find().populate('course');
+    const questions = await questionModel.find().populate('courses');
     res.status(200).send({
       success: true,
       questions,
@@ -204,7 +204,7 @@ export const getQuestionController = async (req, res) => {
 //get detail of question
 export const getSingleQuestionController = async (req, res) => {
   try {
-    const question = await questionModel.findOne({ slug: req.params.slug }).populate('course');
+    const question = await questionModel.findOne({ slug: req.params.slug }).populate('courses');
     res.status(200).send({
       success: true,
       message: 'Single Question Fetched',
