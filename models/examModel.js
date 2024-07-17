@@ -52,10 +52,10 @@ const examSchema = new mongoose.Schema({
     type: String,
     lowercase: true,
   },
-  question: {
+  question: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Question',
-  },
+  }],
 });
 
 export default mongoose.model('Exam', examSchema);
