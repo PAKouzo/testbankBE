@@ -1,6 +1,7 @@
 import slugify from 'slugify';
 import subjectModel from '../models/subjectModel.js';
 
+//create subject
 export const createSubjectController = async (req, res) => {
   try {
     const { name } = req.body;
@@ -30,7 +31,27 @@ export const createSubjectController = async (req, res) => {
   }
 };
 
-export const getAllSubject = async (req, res) => {
+//get single subject
+export const getSingleSubjectController = async (req, res) => {
+  try {
+    const subject = await subjectModel.findOne({ slug: req.params.slug });
+    res.status(200).send({
+      success: true,
+      message: 'Subject fetched successfully',
+      subject,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: 'Error while getting single subject',
+      error,
+    });
+  }
+};
+
+//get all
+export const subjectController = async (req, res) => {
   try {
     const subjects = await subjectModel.find({});
     res.status(200).send({
@@ -73,6 +94,7 @@ export const updateSubjectController = async (req, res) => {
   }
 };
 
+//delete
 export const deleteSubjectController = async (req, res) => {
   try {
     const { id } = req.params;
