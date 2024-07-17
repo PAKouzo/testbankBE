@@ -11,7 +11,7 @@ export const checkExam = async (req, res, next) => {
       decription,
       accessPassword,
       subject,
-      gradeLevel,
+      course,
       question,
     } = req.body;
     if (!name) throw new Error('Name of exam is required!');
@@ -24,7 +24,7 @@ export const checkExam = async (req, res, next) => {
     if (!decription) throw new Error('decription of exam is required!');
     if (!accessPassword) throw new Error('accessPassword of exam is required!');
     if (!subject) throw new Error('subject of exam is required!');
-    if (!gradeLevel) throw new Error('gradeLevel of exam is required!');
+    if (!course) throw new Error('course of exam is required!');
     if (!question) throw new Error('question of exam is required!');
     next();
   } catch (e) {

@@ -39,11 +39,13 @@ const examSchema = new mongoose.Schema({
     required: true,
   },
   subject: {
-    type: String,
+    type: mongoose.ObjectId,
+    ref: 'Subject',
     required: true,
   },
-  gradeLevel: {
-    type: String,
+  course: {
+    type: mongoose.ObjectId,
+    ref: 'Course',
     required: true,
   },
   slug: {
