@@ -18,7 +18,8 @@ const examSchema = new mongoose.Schema({
     required: true,
   },
   timeStart: {
-    type: Date.now(),
+    type: Date,
+    default: Date.now,
     required: true,
   },
   timeEnd: {
