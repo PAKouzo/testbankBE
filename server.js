@@ -7,6 +7,12 @@ import authRoutes from './routes/authRoute.js';
 import questionRoutes from './routes/questionRoute.js';
 import cors from 'cors';
 import courseRoutes from './routes/courseRoute.js';
+<<<<<<< HEAD
+=======
+import examRoutes from './routes/examRoute.js'
+import subjectRoutes from './routes/subjectRoute.js'
+
+>>>>>>> dev2
 
 //config dotenv
 dotenv.config();
@@ -25,6 +31,11 @@ app.use(morgan('dev'));
 app.use('/api/auth', authRoutes);
 app.use('/api/question', questionRoutes);
 app.use('/api/course', courseRoutes);
+<<<<<<< HEAD
+=======
+app.use('/api/exam', examRoutes);
+app.use('/api/subject', subjectRoutes);
+>>>>>>> dev2
 
 app.get('/', (req, res) => {
   res.send('<h1>Wellcome to online test</h1>');
