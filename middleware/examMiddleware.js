@@ -13,7 +13,7 @@ export const checkExam = async (req, res, next) => {
       subject,
       gradeLevel,
       question,
-    } = req.fields;
+    } = req.body;
     if (!name) throw new Error('Name of exam is required!');
     if (!time) throw new Error('Time of exam is required!');
     if (!point) throw new Error('Point of exam is required!');

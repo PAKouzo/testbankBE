@@ -6,8 +6,8 @@ const subjectSchema = new mongoose.Schema({
     require: true,
   },
   slug: {
-    type: String, 
-    required: true,
-  }
+    type: String,
+    lowercase: true,
+  },
 });
-export default mongoose.model('subjects', subjectSchema);
+export default mongoose.model('Subject', subjectSchema);

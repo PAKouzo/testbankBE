@@ -36,3 +36,19 @@ export const createExam = async (req, res) => {
       data: exam,
     });
 };
+
+export const getAllExam = async (req, res) => {
+  try{
+    const exams = await examModel.find().populate('gradeLevel');
+    res.status(200).send({
+      message: 'Successfully',
+      data: exams
+    })
+  }
+  catch(e){
+    res.status(500).send({
+      status: 'failed',
+      message: e.message
+    })
+  }
+}

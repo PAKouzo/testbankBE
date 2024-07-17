@@ -40,11 +40,11 @@ const examSchema = new mongoose.Schema({
   },
   subject: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'subjects',
+    ref: 'Subject',
   },
   gradeLevel: {
     type: mongoose.Schema.Types.ObjectId,
-    required: 'courses',
+    required: 'Course',
   },
   slug: {
     type: String,
@@ -52,8 +52,8 @@ const examSchema = new mongoose.Schema({
   },
   question: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'questions',
+    ref: 'Question',
   },
 });
 
-export default mongoose.model('exams', examSchema);
+export default mongoose.model('Exam', examSchema);
