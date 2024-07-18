@@ -54,3 +54,85 @@ export const getAllExam = async (req, res) => {
     });
   }
 };
+
+//update exam
+export const updateExam = async (req, res) => {
+  const {
+    name,
+    time,
+    point,
+    accessTime,
+    timeStart,
+    timeEnd,
+    correctChoice,
+    decription,
+    accessPassword,
+    subject,
+    course,
+    question,
+  } = req.body;
+  const exam = await examModel.findByIdAndUpdate(
+    req.params.id,
+    {
+      name,
+      time,
+      point,
+      accessTime,
+      timeStart,
+      timeEnd,
+      correctChoice,
+      decription,
+      accessPassword,
+      subject,
+      course,
+      question,
+    },
+    { new: true },
+  );
+  res.status(200).send({
+    success: true,
+    message: 'Exam updated successfully',
+    exam,
+  });
+};
+
+// get single exam
+export const getSingleExam = async (req, res) => {
+  try {
+    const exam = await examModel
+      .findOne({ slug: req.params.slug })
+      .populate('course')
+      .populate('subject');
+    res.status(200).send({
+      success: true,
+      message: 'Single Exam Fetched',
+      exam,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: 'Error in getting single exam',
+      error,
+    });
+  }
+};
+
+//delete exam
+export const deleteExam = async (req, res) => {
+  try {
+    const exam = await examModel.findByIdAndDelete(req.params.id);
+    res.status(200).send({
+      success: true,
+      message: 'Exam deleted successfully',
+      exam,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: 'Error in deleting exam',
+      error,
+    });
+  }
+};
