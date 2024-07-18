@@ -6,8 +6,20 @@ import slugify from 'slugify';
 
 export const createQuestionController = async (req, res) => {
   try {
-    const { subject, course, topic, difficulty, type, content, answers, correctAnswer, solution } =
-      req.fields;
+    const {
+      subject,
+      course,
+      topic,
+      difficulty,
+      type,
+      content,
+      answer1,
+      answer2,
+      answer3,
+      answer4,
+      correctAnswer,
+      solution,
+    } = req.fields;
 
     switch (true) {
       case !subject:
@@ -22,7 +34,13 @@ export const createQuestionController = async (req, res) => {
         return res.status(500).send({ error: 'Type is required' });
       case !content:
         return res.status(500).send({ error: 'Content is required' });
-      case !answers:
+      case !answer1:
+        return res.status(500).send({ error: 'Answers is required' });
+      case !answer2:
+        return res.status(500).send({ error: 'Answers is required' });
+      case !answer3:
+        return res.status(500).send({ error: 'Answers is required' });
+      case !answer4:
         return res.status(500).send({ error: 'Answers is required' });
       case !correctAnswer:
         return res.status(500).send({ error: 'Correct Answer is required' });
@@ -51,14 +69,26 @@ export const createQuestionController = async (req, res) => {
 //update question
 export const updateQuestionController = async (req, res) => {
   try {
-    const { subject, course, topic, difficulty, type, content, answers, correctAnswer, solution } =
-      req.fields;
+    const {
+      subject,
+      course,
+      topic,
+      difficulty,
+      type,
+      content,
+      answer1,
+      answer2,
+      answer3,
+      answer4,
+      correctAnswer,
+      solution,
+    } = req.fields;
 
     switch (true) {
       case !subject:
         return res.status(500).send({ error: 'Subject is required' });
       case !course:
-        return res.status(500).send({ error: 'Course Level is required' });
+        return res.status(500).send({ error: 'Course is required' });
       case !topic:
         return res.status(500).send({ error: 'Topic is required' });
       case !difficulty:
@@ -67,7 +97,13 @@ export const updateQuestionController = async (req, res) => {
         return res.status(500).send({ error: 'Type is required' });
       case !content:
         return res.status(500).send({ error: 'Content is required' });
-      case !answers:
+      case !answer1:
+        return res.status(500).send({ error: 'Answers is required' });
+      case !answer2:
+        return res.status(500).send({ error: 'Answers is required' });
+      case !answer3:
+        return res.status(500).send({ error: 'Answers is required' });
+      case !answer4:
         return res.status(500).send({ error: 'Answers is required' });
       case !correctAnswer:
         return res.status(500).send({ error: 'Correct Answer is required' });
@@ -77,7 +113,7 @@ export const updateQuestionController = async (req, res) => {
 
     const questions = await questionModel.findByIdAndUpdate(
       req.params.qid,
-      { ...req.fields, slug: slugify(subject) },
+      { ...req.fields, slug: slugify(subject), slug: slugify(course) },
       { new: true },
     );
     await questions.save();
@@ -163,7 +199,10 @@ export const duplicateQuestionController = async (req, res) => {
       difficulty: question.difficulty,
       type: question.type,
       content: question.content,
-      answers: question.answers,
+      answer1: question.answer1,
+      answer2: question.answer2,
+      answer3: question.answer3,
+      answer4: question.answer4,
       correctAnswer: question.correctAnswer,
       solution: question.solution,
     });
@@ -186,7 +225,7 @@ export const duplicateQuestionController = async (req, res) => {
 //get all questions
 export const getQuestionController = async (req, res) => {
   try {
-    const questions = await questionModel.find().populate('course');
+    const questions = await questionModel.find().populate('course').populate('subject');
     res.status(200).send({
       success: true,
       questions,
@@ -204,7 +243,10 @@ export const getQuestionController = async (req, res) => {
 //get detail of question
 export const getSingleQuestionController = async (req, res) => {
   try {
-    const question = await questionModel.findOne({ slug: req.params.slug }).populate('course');
+    const question = await questionModel
+      .findOne({ slug: req.params.slug })
+      .populate('course')
+      .populate('subject');
     res.status(200).send({
       success: true,
       message: 'Single Question Fetched',

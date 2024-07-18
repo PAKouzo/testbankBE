@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 const questionSchema = new mongoose.Schema(
   {
     subject: {
-      type: String,
+      type: mongoose.ObjectId,
+      ref: 'Subject',
       required: true,
     },
     slug: {
@@ -34,8 +35,23 @@ const questionSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    answers: {
-      type: Object,
+    answer1: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    answer2: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    answer3: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    answer4: {
+      type: String,
       trim: true,
       required: true,
     },
