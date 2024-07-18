@@ -27,7 +27,7 @@ const questionSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['Choice', 'Multi-choice', 'Text-input'],
+      enum: ['Choice', 'Multi-Choice', 'Text-Input'],
       required: true,
     },
     content: {
@@ -35,25 +35,25 @@ const questionSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    answer: {
+      type: String,
+      trim: true,
+    },
     answer1: {
       type: String,
       trim: true,
-      required: true,
     },
     answer2: {
       type: String,
       trim: true,
-      required: true,
     },
     answer3: {
       type: String,
       trim: true,
-      required: true,
     },
     answer4: {
       type: String,
       trim: true,
-      required: true,
     },
     correctAnswer: {
       type: String,
