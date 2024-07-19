@@ -300,13 +300,23 @@ export const getQuestionController = async (req, res) => {
 //get detail of question
 export const getSingleQuestionController = async (req, res) => {
   try {
+    const questionId = req.params._id;
+
     const question = await questionModel
-      .findOne({ slug: req.params.slug })
+      .findById(questionId)
       .populate('course')
       .populate('subject');
+
+    if (!question) {
+      return res.status(404).send({
+        success: false,
+        message: 'Question not found',
+      });
+    }
+
     res.status(200).send({
       success: true,
-      message: 'Single Question Fetched',
+      message: 'Single Question Fetched Successfully',
       question,
     });
   } catch (error) {
@@ -314,7 +324,7 @@ export const getSingleQuestionController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: 'Error in getting single question',
-      error,
+      error: error.message,
     });
   }
 };

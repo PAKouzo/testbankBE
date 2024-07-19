@@ -31,6 +31,6 @@ router.get('/get-questions', requireSignIn, isAdmin, getQuestionController);
 router.post('/duplicate-question/:slug', requireSignIn, isAdmin, duplicateQuestionController);
 
 //get details of a single question
-router.get('/get-question/:slug', requireSignIn, isAdmin, getSingleQuestionController);
+router.get('/get-question/:_id', requireSignIn, isAdmin, getSingleQuestionController);
 
 export default router;
