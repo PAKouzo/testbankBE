@@ -37,7 +37,7 @@ export const createExam = async (req, res) => {
   });
 };
 
-// get all
+// get all exams
 export const getAllExam = async (req, res) => {
   try {
     const exams = await examModel.find().populate('course').populate('subject');
@@ -99,10 +99,20 @@ export const updateExam = async (req, res) => {
 // get single exam
 export const getSingleExam = async (req, res) => {
   try {
+    const examId = req.params._id;
+
     const exam = await examModel
-      .findOne({ slug: req.params.slug })
+      .findOne(examId)
       .populate('course')
-      .populate('subject');
+      .populate('subject')
+      .populate('question');
+
+    if (!exam) {
+      return res.status(404).send({
+        success: false,
+        message: 'Exam not found',
+      });
+    }
     res.status(200).send({
       success: true,
       message: 'Single Exam Fetched',

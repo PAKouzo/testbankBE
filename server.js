@@ -7,9 +7,8 @@ import authRoutes from './routes/authRoute.js';
 import questionRoutes from './routes/questionRoute.js';
 import cors from 'cors';
 import courseRoutes from './routes/courseRoute.js';
-import examRoutes from './routes/examRoute.js'
-import subjectRoutes from './routes/subjectRoute.js'
-
+import examRoutes from './routes/examRoute.js';
+import subjectRoutes from './routes/subjectRoute.js';
 
 //config dotenv
 dotenv.config();
