@@ -15,10 +15,13 @@ const router = express.Router();
 router.post('/create-exam', requireSignIn, isAdmin, checkExam, createExam);
 
 //get all
-router.get('/get-all', requireSignIn, isAdmin, getAllExam);
+router.get('/get-all', getAllExam);
+
+//get all exam for user
+// router.get('/get-all-exam-for-user', requireSignIn, getSingleExamUser);
 
 //get single exam
-router.get('/get-single-exam/:id', requireSignIn, isAdmin, getSingleExam);
+router.get('/get-single-exam/:id', getSingleExam);
 
 //update exam
 router.put('/update-exam/:id', requireSignIn, isAdmin, checkExam, updateExam);
