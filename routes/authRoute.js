@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   forgotPasswordController,
+  getAllUser,
   loginController,
   registerController,
   testController,
@@ -29,7 +30,8 @@ router.get('/user-auth', requireSignIn, (req, res) => {
 router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
-
+//get all users
+router.get('/get-all', requireSignIn, isAdmin, getAllUser)
 //forgot password
 router.post('/forgot-password', forgotPasswordController);
 
