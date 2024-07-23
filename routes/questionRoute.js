@@ -22,7 +22,7 @@ router.put('/update-question/:qid', requireSignIn, isAdmin, formidable(), update
 router.delete('/delete-question/:qid', requireSignIn, isAdmin, deleteQuestionController);
 
 //get all questions
-router.get('/get-questions', requireSignIn, isAdmin, getQuestionController);
+router.get('/get-questions', getQuestionController);
 
 //shared question
 // router.get('/shared-question', requireSignIn, isAdmin, shareQuestionController);
@@ -31,6 +31,6 @@ router.get('/get-questions', requireSignIn, isAdmin, getQuestionController);
 router.post('/duplicate-question/:slug', requireSignIn, isAdmin, duplicateQuestionController);
 
 //get details of a single question
-router.get('/get-question/:_id', requireSignIn, isAdmin, getSingleQuestionController);
+router.get('/get-question/:_id', getSingleQuestionController);
 
 export default router;

@@ -3,6 +3,7 @@ import questionModel from '../models/questionModel.js';
 import fs from 'fs';
 import slug from 'slug';
 import slugify from 'slugify';
+import { start } from 'repl';
 
 //create question
 export const createQuestionController = async (req, res) => {
@@ -20,6 +21,7 @@ export const createQuestionController = async (req, res) => {
       answer3,
       answer4,
       correctAnswer,
+      correctAnswer1,
       solution,
     } = req.fields;
 
@@ -33,22 +35,37 @@ export const createQuestionController = async (req, res) => {
     if (!solution) return res.status(400).send({ error: 'Solution is required' });
 
     if (type === 'Text-Input') {
-      // Validate Text-Input specific fields
-      if (!answer) return res.status(400).send({ error: 'Answer is required for text input type' });
-      if (!correctAnswer)
+      if (!correctAnswer) {
         return res.status(400).send({ error: 'Correct Answer is required for text input type' });
-    } else if (type === 'Multiple-Choice' || type === 'Choice') {
-      // Validate Multiple-Choice or Choice specific fields
+      }
+    } else if (type === 'Multi-Choice') {
+      const requiredAnswers = [answer, answer1, answer2, answer3, answer4];
+      if (requiredAnswers.some((ans) => ans === undefined)) {
+        return res
+          .status(400)
+          .send({ error: 'All five answers are required for multiple-choice questions' });
+      }
+      const correctAnswers = [correctAnswer, correctAnswer1];
+      if (
+        correctAnswers.some((ans) => ans === undefined) ||
+        correctAnswers[0] === correctAnswers[1] ||
+        !correctAnswers.every((ans) => requiredAnswers.includes(ans))
+      ) {
+        return res
+          .status(400)
+          .send({ error: 'Correct answer must be two distinct answers from the provided options' });
+      }
+    } else if (type === 'Choice') {
       const requiredAnswers = [answer1, answer2, answer3, answer4];
       if (requiredAnswers.some((ans) => ans === undefined)) {
         return res
           .status(400)
-          .send({ error: 'All four answers are required for multiple-choice questions' });
+          .send({ error: 'All four answers are required for choice questions' });
       }
-      if (!correctAnswer || ![answer1, answer2, answer3, answer4].includes(correctAnswer)) {
+      if (!correctAnswer || !requiredAnswers.includes(correctAnswer)) {
         return res
           .status(400)
-          .send({ error: 'Correct Answer must be one of the provided answers' });
+          .send({ error: 'Correct answer must be one of the provided answers' });
       }
     } else {
       return res.status(400).send({ error: 'Invalid question type' });
@@ -89,6 +106,7 @@ export const updateQuestionController = async (req, res) => {
       answer3,
       answer4,
       correctAnswer,
+      correctAnswer1,
       solution,
     } = req.fields;
 
@@ -106,33 +124,52 @@ export const updateQuestionController = async (req, res) => {
       !answer2 &&
       !answer3 &&
       !answer4 &&
-      !correctAnswer
+      !correctAnswer &&
+      !correctAnswer1 &&
+      !solution
     ) {
       return res.status(400).send({ error: 'At least one field is required to update' });
     }
 
     // Validate input based on the type
     if (type === 'Text-Input') {
-      if (answer && !correctAnswer)
+      if (correctAnswer !== undefined && !correctAnswer) {
         return res.status(400).send({ error: 'Correct Answer is required for text input type' });
-    } else if (type === 'Multiple-Choice') {
-      if (answer1 && answer2 && answer3 && answer4) {
-        const requiredAnswers = [answer1, answer2, answer3, answer4];
-        if (requiredAnswers.some((ans) => ans === undefined)) {
-          return res
-            .status(400)
-            .send({ error: 'All four answers are required for multiple-choice questions' });
-        }
-        if (correctAnswer && ![answer1, answer2, answer3, answer4].includes(correctAnswer)) {
-          return res
-            .status(400)
-            .send({ error: 'Correct Answer must be one of the provided answers' });
-        }
-      } else {
+      }
+    } else if (type === 'Multi-Choice') {
+      const requiredAnswers = [answer, answer1, answer2, answer3, answer4];
+      if (requiredAnswers.some((ans) => ans === undefined)) {
         return res
           .status(400)
-          .send({ error: 'All four answers are required for multiple-choice questions' });
+          .send({ error: 'All five answers are required for multiple-choice questions' });
       }
+      const correctAnswers = [correctAnswer, correctAnswer1];
+      if (
+        correctAnswers.some((ans) => ans === undefined) ||
+        correctAnswers[0] === correctAnswers[1] ||
+        !correctAnswers.every((ans) => requiredAnswers.includes(ans))
+      ) {
+        return res
+          .status(400)
+          .send({ error: 'Correct answer must be two distinct answers from the provided options' });
+      }
+    } else if (type === 'Choice') {
+      const requiredAnswers = [answer1, answer2, answer3, answer4];
+      if (requiredAnswers.some((ans) => ans === undefined)) {
+        return res
+          .status(400)
+          .send({ error: 'All four answers are required for choice questions' });
+      }
+      if (
+        correctAnswer !== undefined &&
+        (!correctAnswer || !requiredAnswers.includes(correctAnswer))
+      ) {
+        return res
+          .status(400)
+          .send({ error: 'Correct answer must be one of the provided answers' });
+      }
+    } else {
+      return res.status(400).send({ error: 'Invalid question type' });
     }
 
     // Update the question fields

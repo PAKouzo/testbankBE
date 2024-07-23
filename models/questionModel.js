@@ -60,6 +60,10 @@ const questionSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
+    correctAnswer1: {
+      type: String,
+      trim: true,
+    },
     solution: {
       type: String,
       required: true,
