@@ -1,5 +1,5 @@
 import express from 'express';
-import { requireSignIn, isAdmin } from '../middleware/authMiddleware.js';
+import { requireSignIn, isAdmin, isTeacher } from '../middleware/authMiddleware.js';
 import {
   courseController,
   createCourseController,
@@ -10,19 +10,34 @@ import {
 
 const router = express.Router();
 
-//route
-router.post('/create-course', requireSignIn, isAdmin, createCourseController);
+//route-admin
+router.post('/admin/create-course', requireSignIn, isAdmin, createCourseController);
 
-//update course
-router.put('/update-course/:id', requireSignIn, isAdmin, updateCourseController);
+//route-teacher
+router.post('/teacher/create-course', requireSignIn, isTeacher, createCourseController);
 
-//get all courses
-router.get('/courses', requireSignIn, isAdmin, courseController);
+//update course admin
+router.put('/admin/update-course/:id', requireSignIn, isAdmin, updateCourseController);
 
-//get single course
-router.get('/course/:slug', requireSignIn, isAdmin, singleCourseController);
+//update course teacher
+router.put('/teacher/update-course/:id', requireSignIn, isTeacher, updateCourseController);
 
-//delete course
-router.delete('/delete-course/:id', requireSignIn, isAdmin, deleteCourseController);
+//get all courses admin
+router.get('/admin/courses', requireSignIn, isAdmin, courseController);
+
+//get all courses teacher
+router.get('/teacher/courses', requireSignIn, isTeacher, courseController);
+
+//get single course admin
+router.get('/admin/course/:slug', requireSignIn, isAdmin, singleCourseController);
+
+//get single course teacher
+router.get('/teacher/course/:slug', requireSignIn, isTeacher, singleCourseController);
+
+//delete course admin
+router.delete('/admin/delete-course/:id', requireSignIn, isAdmin, deleteCourseController);
+
+//delete course teacher
+router.delete('/teacher/delete-course/:id', requireSignIn, isTeacher, deleteCourseController);
 
 export default router;

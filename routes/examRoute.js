@@ -7,12 +7,15 @@ import {
   updateExam,
 } from '../controllers/examController.js';
 import { checkExam } from '../middleware/examMiddleware.js';
-import { isAdmin, requireSignIn } from '../middleware/authMiddleware.js';
+import { isAdmin, isTeacher, requireSignIn } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-//create exam
-router.post('/create-exam', requireSignIn, isAdmin, checkExam, createExam);
+//create exam admin
+router.post('/admin/create-exam', requireSignIn, isAdmin, checkExam, createExam);
+
+//create exam teacher
+router.post('/teacher/create-exam', requireSignIn, isTeacher, checkExam, createExam);
 
 //get all
 router.get('/get-all', getAllExam);
@@ -21,11 +24,18 @@ router.get('/get-all', getAllExam);
 // router.get('/get-all-exam-for-user', requireSignIn, getSingleExamUser);
 
 //get single exam
-router.get('/get-single-exam/:id', getSingleExam);
+router.get('/get-single-exam/:_id', getSingleExam);
 
-//update exam
-router.put('/update-exam/:id', requireSignIn, isAdmin, checkExam, updateExam);
+//update exam admin
+router.put('/admin/update-exam/:id', requireSignIn, isAdmin, checkExam, updateExam);
 
-//delete exam
-router.delete('/delete-exam/:id', requireSignIn, isAdmin, deleteExam);
+//update exam teacher
+router.put('/teacher/update-exam/:id', requireSignIn, isTeacher, checkExam, updateExam);
+
+//delete exam admin
+router.delete('/admin/delete-exam/:id', requireSignIn, isAdmin, deleteExam);
+
+//delete exam teacher
+router.delete('/teacher/delete-exam/:id', requireSignIn, isTeacher, deleteExam);
+
 export default router;

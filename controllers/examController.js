@@ -102,7 +102,7 @@ export const getSingleExam = async (req, res) => {
     const examId = req.params._id;
 
     const exam = await examModel
-      .findOne(examId)
+      .findById(examId)
       .populate('course')
       .populate('subject')
       .populate('question');

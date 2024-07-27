@@ -6,23 +6,38 @@ import {
   subjectController,
   updateSubjectController,
 } from '../controllers/subjectController.js';
-import { isAdmin, requireSignIn } from '../middleware/authMiddleware.js';
+import { isAdmin, isTeacher, requireSignIn } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-//routes
-router.post('/create-subject', requireSignIn, isAdmin, createSubjectController);
+//routes admin
+router.post('/admin/create-subject', requireSignIn, isAdmin, createSubjectController);
 
-//get all subjects
-router.get('/subjects', requireSignIn, isAdmin, subjectController);
+//routes teacher
+router.post('/teacher/create-subject', requireSignIn, isTeacher, createSubjectController);
 
-//get single subject
-router.get('/subject/:slug', requireSignIn, isAdmin, getSingleSubjectController);
+//get all subjects admin
+router.get('/admin/subjects', requireSignIn, isAdmin, subjectController);
 
-//update
-router.put('/update-subject/:id', requireSignIn, isAdmin, updateSubjectController);
+//get all subjects teacher
+router.get('/teacher/subjects', requireSignIn, isTeacher, subjectController);
 
-//delete
-router.delete('/delete-subject/:id', requireSignIn, isAdmin, deleteSubjectController);
+//get single subject admin
+router.get('/admin/subject/:slug', requireSignIn, isAdmin, getSingleSubjectController);
+
+//get single subject teacher
+router.get('/teacher/subject/:slug', requireSignIn, isTeacher, getSingleSubjectController);
+
+//update admin
+router.put('/admin/update-subject/:id', requireSignIn, isAdmin, updateSubjectController);
+
+//update teacher
+router.put('/teacher/update-subject/:id', requireSignIn, isTeacher, updateSubjectController);
+
+//delete admin
+router.delete('/admin/delete-subject/:id', requireSignIn, isAdmin, deleteSubjectController);
+
+//delete teacher
+router.delete('/teacher/delete-subject/:id', requireSignIn, isTeacher, deleteSubjectController);
 
 export default router;

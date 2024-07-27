@@ -7,7 +7,7 @@ import {
   testController,
   upadteProfileController,
 } from '../controllers/authController.js';
-import { isAdmin, requireSignIn } from '../middleware/authMiddleware.js';
+import { isAdmin, isTeacher, requireSignIn } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -30,8 +30,15 @@ router.get('/user-auth', requireSignIn, (req, res) => {
 router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
+
+//protected teacher routes
+router.get('/teacher-auth', requireSignIn, isTeacher, (req, res) => {
+  res.status(200).send({ ok: true });
+});
+
 //get all users
-router.get('/get-all', requireSignIn, isAdmin, getAllUser)
+router.get('/get-all', requireSignIn, isAdmin, getAllUser);
+
 //forgot password
 router.post('/forgot-password', forgotPasswordController);
 

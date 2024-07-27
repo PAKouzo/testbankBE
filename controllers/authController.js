@@ -47,8 +47,8 @@ export const registerController = async (req, res) => {
       password: hashedPassword,
       answer,
     }).save();
-    if (user.accounttype !== 'student') {
-      user.role = 1;
+    if (user.accounttype === 'teacher') {
+      user.role = 2;
       user.save();
     }
     res.status(201).send({
