@@ -1,7 +1,8 @@
 import express from 'express';
 import {
+  DeleteUser,
   forgotPasswordController,
-  getAllUser,
+  GetAllUser,
   loginController,
   registerController,
   resultController,
@@ -28,25 +29,28 @@ router.get('/user-auth', requireSignIn, (req, res) => {
 });
 
 //protected admin routes
-router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
-  res.status(200).send({ ok: true });
-});
+router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
+    res.status(200).send({ ok: true });
+})
+
+//get all users
+router.get("/get-all", requireSignIn, isAdmin, GetAllUser)
 
 //protected teacher routes
 router.get('/teacher-auth', requireSignIn, isTeacher, (req, res) => {
   res.status(200).send({ ok: true });
 });
 
-//get all users
-router.get('/get-all', requireSignIn, isAdmin, getAllUser);
-
 //forgot password
 router.post('/forgot-password', forgotPasswordController);
 
 //update profile
-router.put('/profile', requireSignIn, upadteProfileController, getAllUser);
+router.put('/profile', requireSignIn, upadteProfileController, GetAllUser);
 
 //user result
 router.get('/results/:userId', requireSignIn, resultController);
+
+//delete users
+router.delete('/delete/:id', requireSignIn, isAdmin, DeleteUser)
 
 export default router;

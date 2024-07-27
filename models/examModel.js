@@ -20,7 +20,6 @@ const examSchema = new mongoose.Schema({
   timeStart: {
     type: Date,
     default: Date.now,
-    required: true,
   },
   timeEnd: {
     type: Date,
@@ -57,7 +56,10 @@ const examSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Question',
     },
-  ],
-});
+  ]},
+  {
+        timestamps: true
+  }
+);
 
 export default mongoose.model('Exam', examSchema);

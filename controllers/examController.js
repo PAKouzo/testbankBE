@@ -19,13 +19,26 @@ export const createExam = async (req, res) => {
     course,
     question,
   } = req.body;
+
+  console.log('Received timeEnd:', timeEnd); // Log received timeEnd
+
+  // Convert timeEnd to a Date object if it's not already one
+  let formatTime = new Date(timeEnd);
+
+  // Ensure formatTime is a valid Date object
+  if (isNaN(formatTime.getTime())) {
+    return res.status(400).send({ message: 'Invalid timeEnd value', success: false });
+  }
+
+  console.log('Converted timeEnd to Date:', formatTime);
+  console.log('Formatted timeEnd:', formatTime.toLocaleDateString('en-US'));
   const exam = await examModel.create({
     name,
     time,
     point,
     accessTime,
     timeStart,
-    timeEnd,
+    timeEnd: formatTime,
     correctChoice,
     decription,
     accessPassword,
@@ -65,13 +78,10 @@ export const updateExam = async (req, res) => {
     time,
     point,
     accessTime,
-    timeStart,
     timeEnd,
     correctChoice,
     decription,
     accessPassword,
-    subject,
-    course,
     question,
   } = req.body;
   const exam = await examModel.findByIdAndUpdate(
@@ -81,13 +91,10 @@ export const updateExam = async (req, res) => {
       time,
       point,
       accessTime,
-      timeStart,
       timeEnd,
       correctChoice,
       decription,
       accessPassword,
-      subject,
-      course,
       question,
     },
     { new: true },

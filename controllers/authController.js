@@ -214,8 +214,7 @@ export const forgotPasswordController = async (req, res) => {
   }
 };
 
-//get all
-export const getAllUser = async (req, res) => {
+export const GetAllUser = async (req, res) => {
   try {
     const users = await userModel.find({});
     res.status(200).send({
@@ -227,13 +226,30 @@ export const getAllUser = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: 'Error while getting all subjects',
+      message: 'Error while getting all courses',
       error,
     });
   }
-};
+}
 
-//result
+export const DeleteUser = async (req, res) =>{
+  try{
+    const {id} = req.params
+    const user = await userModel.findByIdAndDelete(id);
+    if(!user) throw new Error('User is not exist!')
+    res.status(200).send({
+      message: "Delete user successfully!",
+      data: user
+    })
+  }
+  catch(e){
+    res.status(500).send({
+      message: e.message,
+      data: null
+    })
+  }
+}
+
 export const resultController = async (req, res) => {
   try {
     const userId = req.params._id;
