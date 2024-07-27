@@ -1,5 +1,5 @@
 import express from 'express';
-import {forgotPasswordController, GetAllUser, loginController, registerController, testController, upadteProfileController} from '../controllers/authController.js'
+import {DeleteUser, forgotPasswordController, GetAllUser, loginController, registerController, testController, upadteProfileController} from '../controllers/authController.js'
 import { isAdmin, requireSignIn } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -32,5 +32,8 @@ router.post('/forgot-password', forgotPasswordController);
 
 //update profile
 router.put('/profile', requireSignIn, upadteProfileController);
+
+//delete users
+router.delete('/delete/:id', requireSignIn, isAdmin, DeleteUser)
 
 export default router;

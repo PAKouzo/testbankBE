@@ -229,3 +229,21 @@ export const GetAllUser = async (req, res) => {
     });
   }
 }
+
+export const DeleteUser = async (req, res) =>{
+  try{
+    const {id} = req.params
+    const user = await userModel.findByIdAndDelete(id);
+    if(!user) throw new Error('User is not exist!')
+    res.status(200).send({
+      message: "Delete user successfully!",
+      data: user
+    })
+  }
+  catch(e){
+    res.status(500).send({
+      message: e.message,
+      data: null
+    })
+  }
+}

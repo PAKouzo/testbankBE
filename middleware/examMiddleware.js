@@ -1,3 +1,4 @@
+import moment from 'moment';
 export const checkExam = async (req, res, next) => {
   try {
     const {
@@ -18,7 +19,6 @@ export const checkExam = async (req, res, next) => {
     if (!time) throw new Error('Time of exam is required!');
     if (!point) throw new Error('Point of exam is required!');
     if (!accessTime) throw new Error('accessTime of exam is required!');
-    if (!timeStart) throw new Error('timeStart of exam is required!');
     if (!timeEnd) throw new Error('timeEnd of exam is required!');
     if (!correctChoice) throw new Error('correctChoice of exam is required!');
     if (!decription) throw new Error('decription of exam is required!');
