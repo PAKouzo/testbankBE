@@ -248,42 +248,6 @@ export const deleteQuestionController = async (req, res) => {
 // }
 
 //duplicate question
-// export const duplicateQuestionController = async (req, res) => {
-//   try {
-//     const question = await questionModel.findById(slugify(req.params.slug));
-//     if (!question) {
-//       return res.status(404).send({ error: 'Question not found' });
-//     }
-//     const newQuestion = new questionModel({
-//       subject: question.subject,
-//       slug: slugify(question.slug),
-//       course: question.course,
-//       topic: question.topic,
-//       difficulty: question.difficulty,
-//       type: question.type,
-//       content: question.content,
-//       answer1: question.answer1,
-//       answer2: question.answer2,
-//       answer3: question.answer3,
-//       answer4: question.answer4,
-//       correctAnswer: question.correctAnswer,
-//       solution: question.solution,
-//     });
-//     await newQuestion.save();
-//     res.status(201).send({
-//       success: true,
-//       message: 'Question duplicated successfully',
-//       newQuestion,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({
-//       success: false,
-//       message: 'Error in duplicating question',
-//       error,
-//     });
-//   }
-// };
 export const duplicateQuestionController = async (req, res) => {
   try {
     // Find the existing question

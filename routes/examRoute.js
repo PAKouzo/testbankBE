@@ -4,6 +4,7 @@ import {
   deleteExam,
   getAllExam,
   getSingleExam,
+  submitExam,
   updateExam,
 } from '../controllers/examController.js';
 import { checkExam } from '../middleware/examMiddleware.js';
@@ -37,5 +38,8 @@ router.delete('/admin/delete-exam/:id', requireSignIn, isAdmin, deleteExam);
 
 //delete exam teacher
 router.delete('/teacher/delete-exam/:id', requireSignIn, isTeacher, deleteExam);
+
+//submit exam
+router.post('/submit-exam/:_id', requireSignIn, submitExam);
 
 export default router;

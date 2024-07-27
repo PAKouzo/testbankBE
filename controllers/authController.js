@@ -2,6 +2,8 @@ import { comparePassword, hashPassword } from '../helpers/authHelper.js';
 import userModel from '../models/userModel.js';
 import JWT from 'jsonwebtoken';
 import fs from 'fs';
+import resultModel from '../models/resultModel.js';
+import mongoose from 'mongoose';
 
 //register
 export const registerController = async (req, res) => {
@@ -228,5 +230,27 @@ export const getAllUser = async (req, res) => {
       message: 'Error while getting all subjects',
       error,
     });
+  }
+};
+
+//result
+export const resultController = async (req, res) => {
+  try {
+    const userId = req.params._id;
+
+    if (!userId) {
+      return res.status(400).json({ success: false, message: 'Invalid User ID' });
+    }
+
+    const results = await resultModel.findById(userId).populate('examId');
+
+    if (!results || results.length === 0) {
+      return res.status(404).json({ success: false, message: 'No results found' });
+    }
+
+    res.json({ success: true, results });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };

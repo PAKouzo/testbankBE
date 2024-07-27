@@ -4,6 +4,7 @@ import {
   getAllUser,
   loginController,
   registerController,
+  resultController,
   testController,
   upadteProfileController,
 } from '../controllers/authController.js';
@@ -44,5 +45,8 @@ router.post('/forgot-password', forgotPasswordController);
 
 //update profile
 router.put('/profile', requireSignIn, upadteProfileController, getAllUser);
+
+//user result
+router.get('/results/:userId', requireSignIn, resultController);
 
 export default router;
