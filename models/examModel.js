@@ -13,10 +13,6 @@ const examSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  accessTime: {
-    type: Number,
-    required: true,
-  },
   timeStart: {
     type: Date,
     default: Date.now,
@@ -33,10 +29,6 @@ const examSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // accessPassword: {
-  //   type: String,
-  //   required: true,
-  // },
   subject: {
     type: mongoose.ObjectId,
     ref: 'Subject',

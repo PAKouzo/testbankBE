@@ -5,8 +5,6 @@ export const checkExam = async (req, res, next) => {
       name,
       time,
       point,
-      accessTime,
-      timeStart,
       timeEnd,
       correctChoice,
       decription,
@@ -17,7 +15,6 @@ export const checkExam = async (req, res, next) => {
     if (!name) throw new Error('Name of exam is required!');
     if (!time) throw new Error('Time of exam is required!');
     if (!point) throw new Error('Point of exam is required!');
-    if (!accessTime) throw new Error('accessTime of exam is required!');
     if (!timeEnd) throw new Error('timeEnd of exam is required!');
     if (!correctChoice) throw new Error('correctChoice of exam is required!');
     if (!decription) throw new Error('decription of exam is required!');

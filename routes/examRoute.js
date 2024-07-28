@@ -28,10 +28,10 @@ router.get('/get-all', getAllExam);
 router.get('/get-single-exam/:_id', getSingleExam);
 
 //update exam admin
-router.put('/admin/update-exam/:id', requireSignIn, isAdmin, checkExam, updateExam);
+router.put('/admin/update-exam/:id', requireSignIn, isAdmin, updateExam);
 
 //update exam teacher
-router.put('/teacher/update-exam/:id', requireSignIn, isTeacher, checkExam, updateExam);
+router.put('/teacher/update-exam/:id', requireSignIn, isTeacher, updateExam);
 
 //delete exam admin
 router.delete('/admin/delete-exam/:id', requireSignIn, isAdmin, deleteExam);

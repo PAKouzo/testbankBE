@@ -252,15 +252,15 @@ export const DeleteUser = async (req, res) =>{
 
 export const resultController = async (req, res) => {
   try {
-    const userId = req.params._id;
+    const userId = req.user._id;
 
     if (!userId) {
       return res.status(400).json({ success: false, message: 'Invalid User ID' });
     }
 
-    const results = await resultModel.findById(userId).populate('examId');
+    const results = await resultModel.find({ userId }).populate('examId');
 
-    if (!results || results.length === 0) {
+    if (!results) {
       return res.status(404).json({ success: false, message: 'No results found' });
     }
 
