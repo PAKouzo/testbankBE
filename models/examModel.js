@@ -33,10 +33,10 @@ const examSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  accessPassword: {
-    type: String,
-    required: true,
-  },
+  // accessPassword: {
+  //   type: String,
+  //   required: true,
+  // },
   subject: {
     type: mongoose.ObjectId,
     ref: 'Subject',

@@ -24,7 +24,7 @@ router.get('/get-all', getAllExam);
 //get all exam for user
 // router.get('/get-all-exam-for-user', requireSignIn, getSingleExamUser);
 
-//get single exam
+//get single exam for admin
 router.get('/get-single-exam/:_id', getSingleExam);
 
 //update exam admin

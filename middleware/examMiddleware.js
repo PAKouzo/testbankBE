@@ -10,7 +10,6 @@ export const checkExam = async (req, res, next) => {
       timeEnd,
       correctChoice,
       decription,
-      accessPassword,
       subject,
       course,
       question,
@@ -22,7 +21,6 @@ export const checkExam = async (req, res, next) => {
     if (!timeEnd) throw new Error('timeEnd of exam is required!');
     if (!correctChoice) throw new Error('correctChoice of exam is required!');
     if (!decription) throw new Error('decription of exam is required!');
-    if (!accessPassword) throw new Error('accessPassword of exam is required!');
     if (!subject) throw new Error('subject of exam is required!');
     if (!course) throw new Error('course of exam is required!');
     if (!question) throw new Error('question of exam is required!');

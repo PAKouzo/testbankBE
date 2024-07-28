@@ -14,7 +14,6 @@ export const createExam = async (req, res) => {
     timeEnd,
     correctChoice,
     decription,
-    accessPassword,
     subject,
     course,
     question,
@@ -41,7 +40,6 @@ export const createExam = async (req, res) => {
     timeEnd: formatTime,
     correctChoice,
     decription,
-    accessPassword,
     subject,
     course,
     question,
@@ -81,7 +79,6 @@ export const updateExam = async (req, res) => {
     timeEnd,
     correctChoice,
     decription,
-    accessPassword,
     question,
   } = req.body;
   const exam = await examModel.findByIdAndUpdate(
@@ -94,7 +91,6 @@ export const updateExam = async (req, res) => {
       timeEnd,
       correctChoice,
       decription,
-      accessPassword,
       question,
     },
     { new: true },
